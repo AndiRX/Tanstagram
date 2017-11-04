@@ -39,6 +39,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     //Handle Gestures
     func handlePinch(sender: UIPinchGestureRecognizer) {
         sender.view?.transform = (sender.view?.transform)!.scaledBy(x: sender.scale, y: sender.scale)
+        sender.scale = 1
     }
     
     func handlePan(sender: UIPanGestureRecognizer) {
@@ -46,7 +47,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if let view = sender.view {
             view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
         }
-        
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
@@ -61,6 +61,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         for shape in images {
             let pinch = pinchGesture(imageView: shape)
             shape.addGestureRecognizer(pinch)
+            let pan = panGesture(imageView: shape)
+            shape.addGestureRecognizer(pan)
+            let rotation = rotationGesture(imageView: shape)
+            shape.addGestureRecognizer(rotation)
+            
+            
             
         }
         
